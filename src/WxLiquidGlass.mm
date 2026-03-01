@@ -1,12 +1,14 @@
 #ifdef __APPLE__
 
 #import <AppKit/AppKit.h>
-#import <Foundation/Foundation.h>
 #include <map>
+#include "WxLiquidGlass.h"
+#include <objc/message.h>
 
-struct GlassCtx {
-    NSVisualEffectView* effectView;
+struct GlassCtx
+{
     NSView* hostView;
+    NSView* glassView; // NSGlassEffectView*
 };
 
 static std::map<int, GlassCtx> g_registry;
@@ -19,72 +21,78 @@ static int g_nextId = 1;
         } else {                                    \
             dispatch_sync(dispatch_get_main_queue(), block); \
         }                                           \
-    } while (0)
-    extern "C" int WxAddLiquidGlass(void* nativeViewPtr)
-    {
-        if (!nativeViewPtr)
-            return -1;
+    } while(0)
 
-        __block int result = -1;
+extern "C" int WxLiquidGlass_AddGlassEffect(void* nativeViewPtr, const WxLiquidGlassOptions& opts)
+{
+    if (!nativeViewPtr)
+        return -1;
 
-        RUN_ON_MAIN(^{
+    __block int result = -1;
 
-            NSView* hostView = (__bridge NSView*)nativeViewPtr;
-            if (!hostView)
-                return;
+    RUN_ON_MAIN(^{
 
-            NSWindow* window = [hostView window];
-            if (!window)
-                return;
+        NSView* hostView = (__bridge NSView*)nativeViewPtr;
+        if (!hostView) return;
 
-            // Make window transparent
-            [window setOpaque:YES];
-            [window setBackgroundColor:[NSColor clearColor]];
-            window.titlebarAppearsTransparent = YES;
-            window.styleMask |= NSWindowStyleMaskFullSizeContentView;
+        NSWindow* window = [hostView window];
+        if (!window) return;
 
-            NSRect bounds = [hostView bounds];
+        // Transparent window so the glass effect shows through
+        [window setOpaque:NO];
+        [window setBackgroundColor:[NSColor clearColor]];
+        window.titlebarAppearsTransparent = YES;
+        window.styleMask |= NSWindowStyleMaskFullSizeContentView;
 
-            NSVisualEffectView* effect =
-                [[NSVisualEffectView alloc] initWithFrame:bounds];
+        NSRect bounds = [hostView bounds];
 
-            effect.autoresizingMask =
-                NSViewWidthSizable | NSViewHeightSizable;
+        // Dynamically instantiate NSGlassEffectView
+        Class glassClass = NSClassFromString(@"NSGlassEffectView");
+        NSView* glass = nil;
+        if (glassClass) {
+            glass = [[glassClass alloc] initWithFrame:bounds];
+        } else {
+            // fallback for old macOS
+            NSVisualEffectView* visual = [[NSVisualEffectView alloc] initWithFrame:bounds];
+            visual.material = NSVisualEffectMaterialSidebar;
+            visual.blendingMode = NSVisualEffectBlendingModeBehindWindow;
+            visual.state = NSVisualEffectStateActive;
+            glass = visual;
+        }
 
-            effect.blendingMode = NSVisualEffectBlendingModeBehindWindow;
-            effect.material = NSVisualEffectMaterialUnderWindowBackground;
-            effect.state = NSVisualEffectStateActive;
+        glass.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        glass.wantsLayer = YES;
 
-            effect.wantsLayer = YES;
-            effect.layer.cornerRadius = 16.0;
-            effect.layer.masksToBounds = YES;
+        // Set corner radius if possible
+        if (glass.layer) {
+            glass.layer.cornerRadius = opts.cornerRadius;
+            glass.layer.masksToBounds = (opts.cornerRadius > 0);
+        }
 
-            // Insert behind wx content
-            [hostView addSubview:effect
-                      positioned:NSWindowBelow
-                      relativeTo:nil];
+        // Insert behind content
+        [hostView addSubview:glass positioned:NSWindowBelow relativeTo:nil];
 
-            int id = g_nextId++;
-            GlassCtx ctx;
-            ctx.effectView = effect;
-            ctx.hostView = hostView;
-            g_registry[id] = ctx;
+        int id = g_nextId++;
+        GlassCtx ctx;
+        ctx.hostView = hostView;
+        ctx.glassView = glass;
 
-            result = id;
-        });
+        g_registry[id] = ctx;
+        result = id;
+    });
 
-        return result;
-    }
+    return result;
+}
 
-extern "C" void WxRemoveLiquidGlass(int viewId)
+extern "C" void WxLiquidGlass_RemoveGlassEffect(int glassId)
 {
     RUN_ON_MAIN(^{
-        auto it = g_registry.find(viewId);
-        if (it == g_registry.end())
-            return;
+        auto it = g_registry.find(glassId);
+        if (it == g_registry.end()) return;
 
-        if (it->second.effectView)
-            [it->second.effectView removeFromSuperview];
+        if (it->second.glassView) {
+            [it->second.glassView removeFromSuperview];
+        }
 
         g_registry.erase(it);
     });
