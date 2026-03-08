@@ -94,7 +94,7 @@ extern "C" int AddGlassEffectView(void* nativeViewPtr, bool opaque)
             backgroundView = [[NSBox alloc] initWithFrame:frameRect];
             backgroundView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
             backgroundView.boxType = NSBoxCustom;
-            backgroundView.transparent = NSNoBorder; // dont use .borderType as its deprecated and results in a warning
+            backgroundView.borderType = NSNoBorder;
             backgroundView.fillColor = [NSColor windowBackgroundColor];
             backgroundView.wantsLayer = YES;
         }
@@ -103,6 +103,7 @@ extern "C" int AddGlassEffectView(void* nativeViewPtr, bool opaque)
         Class glassCls = NSClassFromString(@"NSGlassEffectView");
         if (glassCls) {
             glass = [[glassCls alloc] initWithFrame:frameRect];
+            NSLog(@"NSGlassEffectView activated");
         } else {
             // Fallback to NSVisualEffectView on older macOS
             NSLog(@"Fallback to NSVisualEffectView activated");

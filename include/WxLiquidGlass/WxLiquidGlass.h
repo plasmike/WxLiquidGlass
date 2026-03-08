@@ -1,4 +1,5 @@
 #pragma once
+#include <wx/wx.h>
 
 #ifdef __APPLE__
 struct WxLiquidGlassOptions
@@ -10,7 +11,7 @@ struct WxLiquidGlassOptions
 namespace wxLiquidGlass
 {
     // Returns a glass instance ID
-    int AddGlassEffect(void* nativeView, const WxLiquidGlassOptions& opts);
+    int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts);
 
     void RemoveGlassEffect(int id);
 }

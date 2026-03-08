@@ -9,7 +9,7 @@
 
   // Forward declarations for internal functions used by backend
   extern "C" {
-    int AddGlassEffectView(void* nativeViewPTr, bool opaque);
+    int AddGlassEffectView(void* nativeViewPtr, bool opaque);
 
     void RemoveGlassEffectView(int viewID);
   }
