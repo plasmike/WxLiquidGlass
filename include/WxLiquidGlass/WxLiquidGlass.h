@@ -3,7 +3,7 @@
 #ifdef __APPLE__
 struct WxLiquidGlassOptions
 {
-    double cornerRadius = 12.0;
+    double cornerRadius = 5.0;
     bool opaque = false;
 };
 
