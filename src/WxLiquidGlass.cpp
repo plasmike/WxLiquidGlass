@@ -1,23 +1,26 @@
 #include "WxLiquidGlass/WxLiquidGlass.h"
 #include "WxLiquidGlassCommon.h"
 
-
 namespace wxLiquidGlass {
 
 int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 #ifdef PLATFORM_OSX
-    if (!window) return -1;
+    if (!window)
+      return -1;
 
-    // make sure native handle exists
+    if (!window->IsShown())
+      window->Show();
+
+    window->Update();
+    window->Refresh();
+
     void* nativeHandle = window->GetHandle();
-    if (!nativeHandle) {
-        window->Show();
-        nativeHandle = window->GetHandle();
-    }
-    if (!nativeHandle) return -1;
+    if (!nativeHandle)
+      return -1;
 
     // call our objective c++ function that adds NSGlassEffectView
     int id = AddGlassEffectView(nativeHandle, opts.opaque);
+    std::cout << "shouldve reached AddGlassEffectView if this prints" << std::endl;
 
     return id;
 #else
@@ -34,5 +37,7 @@ void RemoveGlassEffect(int id) {
     Q_UNUSED(id);
 #endif
 }
+
+
 
 } // namespace wxLiquidGlass

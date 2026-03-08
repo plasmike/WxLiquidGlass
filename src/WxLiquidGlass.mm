@@ -8,6 +8,7 @@
 #include <objc/message.h>
 #include <map>
 
+#include <iostream>
 
 struct GlassContext
 {
@@ -103,10 +104,9 @@ extern "C" int AddGlassEffectView(void* nativeViewPtr, bool opaque)
         Class glassCls = NSClassFromString(@"NSGlassEffectView");
         if (glassCls) {
             glass = [[glassCls alloc] initWithFrame:frameRect];
-            NSLog(@"NSGlassEffectView activated");
         } else {
             // Fallback to NSVisualEffectView on older macOS
-            NSLog(@"Fallback to NSVisualEffectView activated");
+            std::cout << "FALLBACK to NSVisualEffectView activated" << std::endl;
             NSVisualEffectView *visual = [[NSVisualEffectView alloc] initWithFrame:frameRect];
             visual.blendingMode = NSVisualEffectBlendingModeBehindWindow;
             visual.material = NSVisualEffectMaterialUnderWindowBackground;

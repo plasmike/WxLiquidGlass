@@ -1,11 +1,10 @@
 #include "EmptyWindow.h"
 
-
 MyFrame::MyFrame()
     : wxFrame(nullptr, wxID_ANY, "Wx Liquid Glass", wxDefaultPosition, wxSize(500, 250))
 {
 
-#ifdef PLATFORM_OSX
+#ifdef __APPLE__
     this->CreateStatusBar();
 
     this->SetStatusText("Liquid Glass Test");
@@ -21,7 +20,7 @@ MyFrame::MyFrame()
 MyFrame::~MyFrame()
 {
 
-#ifdef PLATFORM_OSX
+#ifdef __APPLE__
     wxLiquidGlass::RemoveGlassEffect(m_glassId);
 #endif
 }

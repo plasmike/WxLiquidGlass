@@ -1,7 +1,6 @@
 #include <wx/wx.h>
 #include "EmptyWindow.h"
 
-
 class MyApp : public wxApp
 {
 public:

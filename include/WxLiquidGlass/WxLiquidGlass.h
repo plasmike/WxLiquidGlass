@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include <iostream>
 
 #ifdef __APPLE__
 struct WxLiquidGlassOptions
@@ -14,6 +15,8 @@ namespace wxLiquidGlass
     int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts);
 
     void RemoveGlassEffect(int id);
+
+    void testPrint();
 }
 
 #endif
