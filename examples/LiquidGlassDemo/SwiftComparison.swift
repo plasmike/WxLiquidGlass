@@ -31,3 +31,6 @@ struct ContentView: View {
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
 }
+
+// compile using this command: "swiftc SwiftComparison.swift -parse-as-library"
+// doesnt work for me if I remove -parse-as-library
