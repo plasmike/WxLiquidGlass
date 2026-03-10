@@ -20,6 +20,9 @@ int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 
     // call our objective c++ function that adds NSGlassEffectView
     int id = AddGlassEffectView(nativeHandle, opts.opaque);
+
+    // add custom materials here
+
     std::cout << "shouldve reached AddGlassEffectView if this prints" << std::endl;
 
     return id;
@@ -29,7 +32,6 @@ int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 #endif
 }
 
-
 void RemoveGlassEffect(int id) {
 #ifdef PLATFORM_OSX
     RemoveGlassEffectView(id);
@@ -37,7 +39,4 @@ void RemoveGlassEffect(int id) {
     Q_UNUSED(id);
 #endif
 }
-
-
-
 } // namespace wxLiquidGlass
