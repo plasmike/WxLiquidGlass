@@ -27,7 +27,7 @@ struct ContentView: View {
     var body: some View {
           // Liquid glass rectangle
           RoundedRectangle(cornerRadius: 16)
-              .glassEffect(.regular, in: .rect(cornerRadius: 16)) // either .regular or .clear
+              .glassEffect(.clear, in: .rect(cornerRadius: 16)) // either .regular or .clear
               .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
 }
