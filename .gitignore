@@ -2,4 +2,4 @@ build
 **/.DS_Store
 notes.txt
 examples/LiquidGlassDemo/SwiftComparison
-.compile_commands.json
+compile_commands.json
