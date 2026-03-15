@@ -3,3 +3,4 @@ build
 notes.txt
 examples/LiquidGlassDemo/SwiftComparison
 compile_commands.json
+buildMingw
