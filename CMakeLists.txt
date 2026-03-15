@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(WxLiquidGlass LANGUAGES CXX)
 
@@ -16,12 +17,12 @@ add_library(wxLiquidGlass
 )
 
 if(APPLE)
-    target_sources(wxLiquidGlass PRIVATE src/WxLiquidGlass.mm)
+  target_sources(wxLiquidGlass PRIVATE src/WxLiquidGlass.mm)
 
-    find_library(APPKIT_LIBRARY AppKit)
-    find_library(FOUNDATION_LIBRARY Foundation)
+  find_library(APPKIT_LIBRARY AppKit)
+  find_library(FOUNDATION_LIBRARY Foundation)
 
-    target_link_libraries(wxLiquidGlass PRIVATE ${APPKIT_LIBRARY} ${FOUNDATION_LIBRARY})
+  target_link_libraries(wxLiquidGlass PRIVATE ${APPKIT_LIBRARY} ${FOUNDATION_LIBRARY})
 endif()
 
 target_include_directories(wxLiquidGlass
@@ -39,5 +40,5 @@ wxWidgets::wxWidgets
 
 # only build examples if this is the top-level project
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    add_subdirectory(examples/LiquidGlassDemo)
+  add_subdirectory(examples/LiquidGlassDemo)
 endif()
