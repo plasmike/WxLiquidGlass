@@ -1,10 +1,75 @@
 {
-  "version": 4,
-  "vendor": {
-    "conan": {}
-  },
-  "include": [
-    "build/Debug/generators/CMakePresets.json",
-    "build/Release/generators/CMakePresets.json"
-  ]
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 29,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "conan-macos-release",
+            "displayName": "macOS Release Config",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "toolchainFile": "${sourceDir}/build/Release/generators/conan_toolchain.cmake"
+        },
+        {
+            "name": "conan-macos-debug",
+            "displayName": "macOS Debug Config",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "toolchainFile": "${sourceDir}/build/Debug/generators/conan_toolchain.cmake"
+        },
+        {
+            "name": "conan-windows-release",
+            "displayName": "MinGW Windows Release Config",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/buildMingw/build/Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_POLICY_VERSION_MINIMUM": "3.5"
+            },
+            "toolchainFile": "${sourceDir}/buildMingw/build/Release/generators/conan_toolchain.cmake"
+        },
+        {
+            "name": "conan-windows-debug",
+            "displayName": "MinGW Windows Debug Config",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/buildMingw/build/Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+                "CMAKE_POLICY_VERSION_MINIMUM": "3.5"
+            },
+            "toolchainFile": "${sourceDir}/buildMingw/build/Debug/generators/conan_toolchain.cmake"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "conan-macos-release",
+            "configurePreset": "conan-macos-release"
+        },
+        {
+            "name": "conan-macos-debug",
+            "configurePreset": "conan-macos-debug"
+        },
+        {
+            "name": "conan-windows-release",
+            "configurePreset": "conan-windows-release"
+        },
+        {
+            "name": "conan-windows-debug",
+            "configurePreset": "conan-windows-debug"
+        }
+    ]
 }

@@ -23,11 +23,10 @@ int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 
     // add custom materials here
 
-    std::cout << "shouldve reached AddGlassEffectView if this prints" << std::endl;
 
     return id;
 #else
-    Q_UNUSED(opts);
+    //Q_UNUSED(opts);
     return -1;
 #endif
 }
@@ -36,7 +35,7 @@ void RemoveGlassEffect(int id) {
 #ifdef PLATFORM_OSX
     RemoveGlassEffectView(id);
 #else
-    Q_UNUSED(id);
+    //Q_UNUSED(id);
 #endif
 }
 } // namespace wxLiquidGlass

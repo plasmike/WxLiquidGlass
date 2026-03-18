@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.29)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(WxLiquidGlass LANGUAGES CXX)
@@ -36,6 +36,10 @@ target_link_libraries(wxLiquidGlass
 PUBLIC
 wxWidgets::wxWidgets
 )
+
+if(WIN32) # for windows builds
+    target_link_libraries(wxLiquidGlass PRIVATE gdiplus)
+endif()
 
 
 # only build examples if this is the top-level project

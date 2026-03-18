@@ -18,7 +18,7 @@ class WxLiquidGlassRecipe(ConanFile):
 
   def generate(self):
     tc = CMakeToolchain(self)
-    tc.user_presets_path = None
+    tc.user_presets_path = None # prevent conan from overwriting our CMakeUserPresets.json
     tc.generate()
     cmake = CMakeDeps(self)
     cmake.generate()

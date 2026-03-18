@@ -1,8 +1,6 @@
 #pragma once
 #include <wx/wx.h>
-#include <iostream>
 
-#ifdef __APPLE__
 struct WxLiquidGlassOptions
 {
     double cornerRadius = 5.0;
@@ -15,8 +13,4 @@ namespace wxLiquidGlass
     int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts);
 
     void RemoveGlassEffect(int id);
-
-    void testPrint();
 }
-
-#endif
