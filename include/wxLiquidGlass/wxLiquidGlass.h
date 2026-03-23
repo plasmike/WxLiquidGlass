@@ -9,6 +9,7 @@ struct wxLiquidGlassOptions
 
 namespace wxLiquidGlass
 {
+    void SwiftBridgeTestFunc();
     // Returns a glass instance ID
     int AddGlassEffect(wxWindow* window, const wxLiquidGlassOptions& opts);
 

@@ -12,7 +12,7 @@
         {
             "name": "conan-macos-release",
             "displayName": "macOS Release Config",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/Release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -22,7 +22,7 @@
         {
             "name": "conan-macos-debug",
             "displayName": "macOS Debug Config",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/Debug",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"

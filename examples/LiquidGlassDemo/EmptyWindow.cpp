@@ -1,4 +1,5 @@
 #include "EmptyWindow.h"
+#include "wxLiquidGlass/wxLiquidGlass.h"
 
 
 MyFrame::MyFrame()
@@ -17,7 +18,7 @@ MyFrame::MyFrame()
   wxLiquidGlassOptions opts;
   opts.cornerRadius = 32.0;
   opts.opaque = false;
-
+  wxLiquidGlass::SwiftBridgeTestFunc();
   m_glassId = wxLiquidGlass::AddGlassEffect(testButton, opts);
 #endif
 }

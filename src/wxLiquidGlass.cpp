@@ -1,7 +1,15 @@
 #include "wxLiquidGlass/wxLiquidGlass.h"
 #include "wxLiquidGlassCommon.h"
+#include "wxLiquidGlass-Swift.h"
 
 namespace wxLiquidGlass {
+
+void SwiftBridgeTestFunc()
+{
+#ifdef PLATFORM_OSX
+    wxLiquidGlassBridge::SwiftBridgeTest();
+#endif
+}
 
 int AddGlassEffect(wxWindow* window, const wxLiquidGlassOptions& opts) {
 #ifdef PLATFORM_OSX
