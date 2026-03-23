@@ -2,7 +2,7 @@
 
 #include <wx/wx.h>
 #include <wx/wxprec.h>
-#include "WxLiquidGlass/WxLiquidGlass.h"
+#include "wxLiquidGlass/wxLiquidGlass.h"
 
 class MyFrame : public wxFrame
 {

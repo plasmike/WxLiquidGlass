@@ -1,4 +1,4 @@
-#include "WxLiquidGlassCommon.h"
+#include "wxLiquidGlassCommon.h"
 
 #ifdef PLATFORM_OSX
 #import <AppKit/AppKit.h>
@@ -116,7 +116,7 @@ extern "C" int AddGlassEffectView(void* nativeViewPtr, bool opaque)
         glass.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         glass.wantsLayer = YES;
 
-        // Subview order: [Background] -> [Glass] -> [Wx Content]
+        // Subview order: [Background] -> [Glass] -> [wx Content]
         if (container == rootView) {
             if (backgroundView) {
                 [container addSubview:backgroundView positioned:NSWindowBelow relativeTo:nil];

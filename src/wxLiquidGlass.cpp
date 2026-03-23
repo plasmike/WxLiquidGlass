@@ -1,9 +1,9 @@
-#include "WxLiquidGlass/WxLiquidGlass.h"
-#include "WxLiquidGlassCommon.h"
+#include "wxLiquidGlass/wxLiquidGlass.h"
+#include "wxLiquidGlassCommon.h"
 
 namespace wxLiquidGlass {
 
-int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
+int AddGlassEffect(wxWindow* window, const wxLiquidGlassOptions& opts) {
 #ifdef PLATFORM_OSX
     if (!window)
       return -1;
@@ -23,10 +23,8 @@ int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 
     // add custom materials here
 
-
     return id;
 #else
-    //Q_UNUSED(opts);
     return -1;
 #endif
 }
@@ -34,8 +32,6 @@ int AddGlassEffect(wxWindow* window, const WxLiquidGlassOptions& opts) {
 void RemoveGlassEffect(int id) {
 #ifdef PLATFORM_OSX
     RemoveGlassEffectView(id);
-#else
-    //Q_UNUSED(id);
 #endif
 }
 } // namespace wxLiquidGlass

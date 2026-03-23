@@ -5,7 +5,7 @@
 #endif
 
 #ifdef PLATFORM_OSX
-  // Dont include AppKit/Foundation bc this header is included by WxLiquidGlass.cpp which is a standard C++ file
+  // Dont include AppKit/Foundation bc this header is included by wxLiquidGlass.cpp which is a standard C++ file
 
   // Forward declarations for internal functions used by backend
   extern "C" {

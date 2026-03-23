@@ -2,7 +2,7 @@
 
 
 MyFrame::MyFrame()
-    : wxFrame(nullptr, wxID_ANY, "Wx Liquid Glass Test", wxDefaultPosition,
+    : wxFrame(nullptr, wxID_ANY, "wx Liquid Glass Test", wxDefaultPosition,
               wxSize(500, 250)) {
 
   SetBackgroundColour(wxColour(0, 0, 0, 0));
@@ -14,7 +14,7 @@ MyFrame::MyFrame()
   this->CreateStatusBar(); // optional
 
 #ifdef __APPLE__
-  WxLiquidGlassOptions opts;
+  wxLiquidGlassOptions opts;
   opts.cornerRadius = 32.0;
   opts.opaque = false;
 

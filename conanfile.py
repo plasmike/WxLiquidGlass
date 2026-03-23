@@ -3,7 +3,7 @@ from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, cmake_layout
 
 class WxLiquidGlassRecipe(ConanFile):
-  name = "WxLiquidGlass"
+  name = "wxLiquidGlass"
 
   # config
   settings = "os", "compiler", "build_type", "arch"
